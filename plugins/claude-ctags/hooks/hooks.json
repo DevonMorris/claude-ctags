@@ -27,12 +27,11 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Bash",
+        "matcher": "Grep|Glob",
         "hooks": [
           {
-            "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/scripts/pre-commit-hook.sh",
-            "timeout": 30
+            "type": "prompt",
+            "prompt": "If searching for a code definition (class, function, method, type), check .claude/tags first: grep '^SymbolName\\t' .claude/tags — this is faster and uses fewer tokens than broad searches."
           }
         ]
       }
