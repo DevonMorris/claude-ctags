@@ -1,0 +1,9 @@
+# Claude Code generated files
+.claude/tags
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+.vscode/

@@ -1,0 +1,9 @@
+{
+  "name": "claude-ctags",
+  "version": "0.1.0",
+  "description": "Auto-generates and maintains ctags index for efficient code navigation, reducing token usage by providing precise symbol-to-location lookups",
+  "author": {
+    "name": "Devon"
+  },
+  "keywords": ["ctags", "indexing", "navigation", "performance", "tokens"]
+}
