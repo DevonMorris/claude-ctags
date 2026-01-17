@@ -2,6 +2,22 @@
 
 A Claude Code plugin that automatically generates and maintains a ctags index for efficient code navigation. Reduces token usage by providing precise symbol-to-location lookups instead of broad grep searches.
 
+## Installation
+
+Requires Claude Code version 1.0.33 or later.
+
+**1. Add the marketplace:**
+```bash
+/plugin marketplace add DevonMorris/claude-ctags
+```
+
+**2. Install the plugin:**
+```bash
+/plugin install claude-ctags@claude-ctags
+```
+
+Or use the interactive installer with `/plugin` and navigate to the **Discover** tab.
+
 ## Features
 
 - **Auto-indexing**: Generates ctags index on session start
@@ -11,9 +27,7 @@ A Claude Code plugin that automatically generates and maintains a ctags index fo
 
 ## Requirements
 
-- [Universal Ctags](https://github.com/universal-ctags/ctags) installed and available in PATH
-
-### Installation
+[Universal Ctags](https://github.com/universal-ctags/ctags) must be installed and available in PATH:
 
 **macOS:**
 ```bash
