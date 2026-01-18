@@ -24,6 +24,7 @@ fi
 # --tag-relative=yes: use relative paths
 # --exclude common non-code directories
 ctags -R \
+    --extras=+r \
     --tag-relative=yes \
     --exclude=.git \
     --exclude=node_modules \

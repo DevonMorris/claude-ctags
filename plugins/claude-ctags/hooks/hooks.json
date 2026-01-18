@@ -27,7 +27,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "Grep|Glob",
+        "matcher": "Grep",
         "hooks": [
           {
             "type": "prompt",
