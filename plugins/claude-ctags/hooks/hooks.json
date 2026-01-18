@@ -31,7 +31,7 @@
         "hooks": [
           {
             "type": "prompt",
-            "prompt": "If searching for a code definition (class, function, method, type), check .claude/tags first: grep '^SymbolName\\t' .claude/tags — this is faster and uses fewer tokens than broad searches."
+            "prompt": "If searching for a symbol (definition, reference, import, method call), check .claude/tags first: grep '^SymbolName\\t' .claude/tags — this is faster and uses fewer tokens than broad searches. The tags index includes both definitions and references."
           }
         ]
       }

@@ -1,25 +1,26 @@
 ---
 name: ctags-usage
-description: This skill should be used when the user asks to "find where X is defined", "locate the definition of", "where is the class/function/method", "jump to definition", "find symbol", or when needing to navigate to code definitions efficiently. Provides guidance on using the ctags index for token-efficient code navigation instead of broad grep searches.
-version: 0.1.0
+description: This skill should be used when the user asks to "find where X is defined", "find references to X", "where is X used", "locate the definition of", "where is the class/function/method", "jump to definition", "find symbol", or when needing to navigate code efficiently. Provides guidance on using the ctags index for token-efficient code navigation instead of broad grep searches.
+version: 0.2.0
 ---
 
 # Ctags Usage for Efficient Code Navigation
 
 ## Overview
 
-This plugin maintains a ctags index at `.claude/tags` that maps symbol names to their definition locations. Use this index to find code definitions with minimal token usage instead of running broad grep or tree searches.
+This plugin maintains a ctags index at `.claude/tags` that maps symbol names to their locations. The index includes both definitions and references, making it useful for finding where symbols are defined AND where they are used. Use this index for efficient code navigation with minimal token usage instead of running broad grep or tree searches.
 
 ## When to Use Ctags
 
 **Use ctags lookup FIRST when:**
 - Finding where a class, function, method, or type is defined
+- Finding references to a symbol (where it's used, imported, called)
 - Navigating to a symbol's source location
-- The user asks "where is X defined?" or "find the definition of X"
+- The user asks "where is X defined?" or "find references to X"
 
 **Fall back to grep when:**
-- Searching for usage/references (not definitions)
 - Searching for text patterns that aren't symbol names
+- Searching for string literals, comments, or documentation
 - The ctags lookup returns no results
 - Searching in file types not indexed by ctags
 
@@ -54,8 +55,11 @@ src/models/user.ts:15
 
 ### Interpreting Results
 
-- Multiple results indicate the symbol is defined in multiple places (common for method names)
-- Use the `kind` field to distinguish: `c` = class, `f` = function, `m` = method, `v` = variable
+- Multiple results indicate the symbol appears in multiple places (definitions AND references)
+- Use the `kind` field to distinguish:
+  - `c` = class, `f` = function, `m` = method, `v` = variable (definitions)
+  - `r` = reference (where the symbol is used/imported/called)
+- Filter by kind to narrow results: `grep "^Symbol\t" .claude/tags | grep "kind:r"` for references only
 - Read the specific file at the returned line number
 
 ## Token Efficiency Strategy
@@ -159,12 +163,12 @@ When about to modify code:
 
 ## Limitations
 
-- **Definitions only**: Ctags indexes definitions, not references/usages
 - **Language support**: Some languages have limited tag extraction
 - **Dynamic code**: Runtime-generated symbols not indexed
 - **Freshness**: Index may lag briefly after rapid edits
+- **Reference coverage**: Not all references may be captured depending on language
 
-For references/usages, fall back to grep:
+For patterns not captured by ctags, fall back to grep:
 ```bash
 grep -r "SymbolName" --include="*.ts" .
 ```
